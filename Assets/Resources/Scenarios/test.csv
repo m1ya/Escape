@@ -1,0 +1,1 @@
+﻿藤咲晴,,吾輩（わがはい）は猫である。,,@item_show name=hiyori,,@bgm_play name=bgm藤咲晴,,名前はまだ無い。,,@chara_show name=藤咲晴 pos=center,,@chara_show name=藤咲日和 pos=left,,@bg_show name=hiyori藤咲晴,,何でも薄暗いじめじめした所でニャーニャー泣いていた事だけは記憶している。,,@bg_hide藤咲晴,普通,どこで生れたかとんと見当（けんとう）がつかぬ。,,@chara_hide name=藤咲日和,,@se_play name=se,,@end
