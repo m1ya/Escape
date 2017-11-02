@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 295258989}
   - component: {fileID: 295258988}
   - component: {fileID: 295258992}
+  - component: {fileID: 295258993}
   m_Layer: 5
   m_Name: SearchCanvas
   m_TagString: Untagged
@@ -220,6 +221,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   backGround: {fileID: 1682280000}
+--- !u!114 &295258993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 295258987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4129d1524de854e9e9ff0407cc12068e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &354638390
 GameObject:
   m_ObjectHideFlags: 0
@@ -478,7 +490,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 295258992}
+        - m_Target: {fileID: 295258993}
           m_MethodName: ReturnRoom
           m_Mode: 1
           m_Arguments:
@@ -866,7 +878,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 295258992}
+        - m_Target: {fileID: 295258993}
           m_MethodName: MoveLeft
           m_Mode: 1
           m_Arguments:
@@ -1163,7 +1175,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 295258992}
+        - m_Target: {fileID: 295258993}
           m_MethodName: MoveRight
           m_Mode: 1
           m_Arguments:

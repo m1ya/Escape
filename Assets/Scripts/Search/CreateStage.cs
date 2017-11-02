@@ -37,7 +37,7 @@ public class CreateStage : MonoBehaviour
 	{
 		for (int i = 0; i < pointDatas.lineNum; i++) {
 			if (pointDatas.datas [i] [1] == "Move") {
-				PointAction.Instance.AddRoom (int.Parse (pointDatas.datas [i] [0]));
+				RoomManager.Instance.AddRoom (int.Parse (pointDatas.datas [i] [0]));
 			}
 			GameObject obj = new GameObject (pointDatas.datas [i] [0]);
 			obj.transform.SetParent (searchCanvas.transform);
@@ -86,7 +86,7 @@ public class CreateStage : MonoBehaviour
 				var entry = new EventTrigger.Entry ();
 				entry.eventID = EventTriggerType.PointerDown;
 				entry.callback.AddListener ((x) => {
-					PointAction.Instance.ZoomRoom (name);
+					RoomManager.Instance.ZoomRoom (name);
 				});
 				trigger.triggers.Add (entry);
 			}
