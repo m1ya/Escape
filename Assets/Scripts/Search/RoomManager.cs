@@ -17,11 +17,18 @@ public class RoomManager : SingletonMonoBehaviour<RoomManager>
 	[SerializeField]
 	private GameObject returnArrow;
 
+	/// <summary>
+	/// RoomをDicに追加する
+	/// </summary>
+	/// <param name="roomNum">Room number.</param>
 	public void AddRoom (int roomNum)
 	{
 		mainRoom.Add (roomNum);
 	}
 
+	/// <summary>
+	/// 左矢印用
+	/// </summary>
 	private void MoveLeft ()
 	{
 		int oldRoom = currentRoom;
@@ -32,6 +39,9 @@ public class RoomManager : SingletonMonoBehaviour<RoomManager>
 		ChangeRoom (oldRoom, currentRoom);
 	}
 
+	/// <summary>
+	/// 右矢印用
+	/// </summary>
 	private void MoveRight ()
 	{
 		int oldRoom = currentRoom;
@@ -42,12 +52,20 @@ public class RoomManager : SingletonMonoBehaviour<RoomManager>
 		ChangeRoom (oldRoom, currentRoom);
 	}
 
+	/// <summary>
+	/// 戻る矢印用
+	/// </summary>
 	private void ReturnRoom ()
 	{
 		returnArrow.SetActive (false);
 		ChangeRoom (-1, currentRoom);
 	}
 
+	/// <summary>
+	/// 部屋をFromからToへ移動する
+	/// </summary>
+	/// <param name="from">From.</param>
+	/// <param name="to">To.</param>
 	public void ChangeRoom (int from, int to)
 	{
 		//TODO: Roomの時は左右をだす、zoomの時は後ろを出す
@@ -65,6 +83,10 @@ public class RoomManager : SingletonMonoBehaviour<RoomManager>
 
 	}
 
+	/// <summary>
+	/// 部屋にZoomする
+	/// </summary>
+	/// <param name="to">To.</param>
 	public void ZoomRoom (string to)
 	{
 		zoomPoint = to;
@@ -74,7 +96,9 @@ public class RoomManager : SingletonMonoBehaviour<RoomManager>
 		returnArrow.SetActive (true);
 	}
 
-	//Room周りの設定初期化
+	/// <summary>
+	/// Room周りの設定初期化
+	/// </summary>
 	public void InitRooms ()
 	{
 		mainRoom.Sort ();
@@ -119,18 +143,5 @@ public class RoomManager : SingletonMonoBehaviour<RoomManager>
 			MoveRight ();
 		});
 		trigger.triggers.Add (entry);
-	}
-
-
-	// Use this for initialization
-	void Awake ()
-	{
-
-	}
-	
-	// Update is called once per frame
-	void Update ()
-	{
-		
 	}
 }

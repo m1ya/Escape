@@ -30,7 +30,7 @@ public class CreateStage : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Pintsファイルからオブジェクトを生成する
+	/// Pointsファイルからオブジェクトを生成する
 	/// name, mode, fileName
 	/// </summary>
 	void CreateParent ()
@@ -87,6 +87,40 @@ public class CreateStage : MonoBehaviour
 				entry.eventID = EventTriggerType.PointerDown;
 				entry.callback.AddListener ((x) => {
 					RoomManager.Instance.ZoomRoom (name);
+				});
+				trigger.triggers.Add (entry);
+			} else if (pointDatas.datas [i] [2] == "Mes") {
+				int length = pointDatas.datas [i].Length - 9;
+				string[] mes = new string[length];
+				for (int j = 9; j - 9 < length; j++) {
+					mes [j - 9] = pointDatas.datas [i] [j];
+				}
+				EventTrigger trigger = obj.AddComponent<EventTrigger> ();
+				var entry = new EventTrigger.Entry ();
+				entry.eventID = EventTriggerType.PointerDown;
+				entry.callback.AddListener ((x) => {
+					MessageManager.Instance.ShowMessages (mes);
+				});
+				trigger.triggers.Add (entry);
+			} else if (pointDatas.datas [i] [2] == "RMes") {
+				string name = pointDatas.datas [i] [0];
+				int rCount = int.Parse (pointDatas.datas [i] [9]);
+				MessageManager.Instance.AddRMes (name);
+				string rMes = pointDatas.datas [i] [pointDatas.datas [i].Length - 1];
+				int length = pointDatas.datas [i].Length - 10;
+				string[] mes = new string[length - 1];
+				for (int j = 10; j - 10 < length - 1; j++) {
+					mes [j - 10] = pointDatas.datas [i] [j];
+				}
+				EventTrigger trigger = obj.AddComponent<EventTrigger> ();
+				var entry = new EventTrigger.Entry ();
+				entry.eventID = EventTriggerType.PointerDown;
+				entry.callback.AddListener ((x) => {
+					if (MessageManager.Instance.CheckCount (name, rCount)) {
+						MessageManager.Instance.ShowMessages (new string[]{ rMes });
+					} else {
+						MessageManager.Instance.ShowMessages (mes);
+					}
 				});
 				trigger.triggers.Add (entry);
 			}

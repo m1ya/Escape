@@ -51,6 +51,7 @@ public class PointAction : SingletonMonoBehaviour<PointAction>
 
 		new CreateStage (searchCanvas);
 		RoomManager.Instance.InitRooms ();
+
 	}
 	
 	// Update is called once per frame
