@@ -123,6 +123,29 @@ public class CreateStage : MonoBehaviour
 					}
 				});
 				trigger.triggers.Add (entry);
+			} else if (pointDatas.datas [i] [2] == "Rock") {
+				string name = pointDatas.datas [i] [0];
+				int length = pointDatas.datas [i].Length - 10;
+				int[] nums = new int[length];
+				int correctNum = int.Parse (pointDatas.datas [i] [9]);
+				GameObject text = new GameObject ("Text");
+				Text textComponent = text.AddComponent<Text> ();
+				textComponent.font = Resources.GetBuiltinResource (typeof(Font), "Arial.ttf") as Font;
+				textComponent.fontSize = (int)(rectTransform.sizeDelta.x / 2);
+				textComponent.alignment = TextAnchor.MiddleCenter;
+				text.transform.SetParent (obj.transform);
+				text.GetComponent<RectTransform> ().localPosition = new Vector3 (0, 0, 0);
+				RockManager.Instance.AddRocks (name, text, correctNum, int.Parse (pointDatas.datas [i] [10]));
+				for (int j = 10; j - 10 < length; j++) {
+					nums [j - 10] = int.Parse (pointDatas.datas [i] [j]);
+				}
+				EventTrigger trigger = obj.AddComponent<EventTrigger> ();
+				var entry = new EventTrigger.Entry ();
+				entry.eventID = EventTriggerType.PointerDown;
+				entry.callback.AddListener ((x) => {
+					RockManager.Instance.ChangeNumber (name, nums);
+				});
+				trigger.triggers.Add (entry);
 			}
 		}
 	}
