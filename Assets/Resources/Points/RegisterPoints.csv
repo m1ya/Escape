@@ -1,6 +1,2 @@
-1,,Move,1,,,,,
-zoomTest,1,Zoom,hiyori,,,100,0,0
-test,1,Check,hiyori,,,0,0,0
-3,,Move,hiyori,,,,,
-4,,Move,1,,,,,
-2,,Move,1,,,,,
+1,Move,1
+zoomTest,Zoom,1
