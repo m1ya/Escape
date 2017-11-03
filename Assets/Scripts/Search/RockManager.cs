@@ -18,20 +18,41 @@ public struct IntRockData
 		isCorrect = (correctNum == currentNum);
 		text.text = currentNum.ToString ();
 	}
+
 }
+
+public struct ColorRockData
+{
+	public RawImage rawImage;
+	public Color correctColor;
+	public Color currentColor;
+	public bool isCorrect;
+
+	public ColorRockData (RawImage rawImage, Color correctColor, Color currentColor)
+	{
+		this.rawImage = rawImage;
+		this.correctColor = correctColor;
+		this.currentColor = currentColor;
+		isCorrect = (correctColor == currentColor);
+		rawImage.color = currentColor;
+	}
+}
+
+
 
 public class RockManager : SingletonMonoBehaviour<RockManager>
 {
-	private Dictionary<string, IntRockData> rocks = new Dictionary<string, IntRockData> ();
+	private Dictionary<string, IntRockData> iRocks = new Dictionary<string, IntRockData> ();
+	private Dictionary<string, ColorRockData> cRocks = new Dictionary<string, ColorRockData> ();
 
-	public void AddRocks (string name, GameObject obj, int num, int dNum)
+	public void AddIRocks (string name, GameObject obj, int num, int dNum)
 	{
-		rocks.Add (name, new IntRockData (obj.GetComponent<Text> (), num, dNum));
+		iRocks.Add (name, new IntRockData (obj.GetComponent<Text> (), num, dNum));
 	}
 
 	public void ChangeNumber (string name, int[] nums)
 	{
-		IntRockData intRockData = rocks [name];
+		IntRockData intRockData = iRocks [name];
 
 		for (int i = 0; i < nums.Length; i++) {
 			if (nums [i] == intRockData.currentNum) {
@@ -44,7 +65,30 @@ public class RockManager : SingletonMonoBehaviour<RockManager>
 		}
 		intRockData.isCorrect = (intRockData.correctNum == intRockData.currentNum);
 		intRockData.text.text = intRockData.currentNum.ToString ();
-		rocks [name] = intRockData;
+		iRocks [name] = intRockData;
+	}
+
+	public void AddCRocks (string name, GameObject obj, Color color, Color dColor)
+	{
+		cRocks.Add (name, new ColorRockData (obj.GetComponent<RawImage> (), color, dColor));
+	}
+
+	public void ChangeColor (string name, Color[] colors)
+	{
+		ColorRockData colorRockData = cRocks [name];
+
+		for (int i = 0; i < colors.Length; i++) {
+			if (colors [i] == colorRockData.currentColor) {
+				int j = i + 1;
+				if (j >= colors.Length)
+					j = 0;
+				colorRockData.currentColor = colors [j];
+				break;
+			}
+		}
+		colorRockData.isCorrect = (colorRockData.correctColor == colorRockData.currentColor);
+		colorRockData.rawImage.color = colorRockData.currentColor;
+		cRocks [name] = colorRockData;
 	}
 
 	// Use this for initialization

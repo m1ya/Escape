@@ -123,7 +123,7 @@ public class CreateStage : MonoBehaviour
 					}
 				});
 				trigger.triggers.Add (entry);
-			} else if (pointDatas.datas [i] [2] == "Rock") {
+			} else if (pointDatas.datas [i] [2] == "IRock") {
 				string name = pointDatas.datas [i] [0];
 				int length = pointDatas.datas [i].Length - 10;
 				int[] nums = new int[length];
@@ -135,7 +135,7 @@ public class CreateStage : MonoBehaviour
 				textComponent.alignment = TextAnchor.MiddleCenter;
 				text.transform.SetParent (obj.transform);
 				text.GetComponent<RectTransform> ().localPosition = new Vector3 (0, 0, 0);
-				RockManager.Instance.AddRocks (name, text, correctNum, int.Parse (pointDatas.datas [i] [10]));
+				RockManager.Instance.AddIRocks (name, text, correctNum, int.Parse (pointDatas.datas [i] [10]));
 				for (int j = 10; j - 10 < length; j++) {
 					nums [j - 10] = int.Parse (pointDatas.datas [i] [j]);
 				}
@@ -146,6 +146,29 @@ public class CreateStage : MonoBehaviour
 					RockManager.Instance.ChangeNumber (name, nums);
 				});
 				trigger.triggers.Add (entry);
+			} else if (pointDatas.datas [i] [2] == "CRock") {
+				string name = pointDatas.datas [i] [0];
+				int length = pointDatas.datas [i].Length - 10;
+				Color[] colors = new Color[length];
+				Color correctColor = ColorManager.Instance.StringToColor (pointDatas.datas [i] [9]);
+				GameObject imgObj = new GameObject ("RawImage");
+				RawImage rawImage = imgObj.AddComponent<RawImage> ();
+				rawImage.transform.SetParent (obj.transform);
+				rawImage.GetComponent<RectTransform> ().localPosition = new Vector3 (0, 0, 0);
+				rawImage.GetComponent<RectTransform> ().sizeDelta = rectTransform.sizeDelta / 2;
+				RockManager.Instance.AddCRocks (name, imgObj, correctColor, ColorManager.Instance.StringToColor (pointDatas.datas [i] [10]));
+				for (int j = 10; j - 10 < length; j++) {
+					colors [j - 10] = ColorManager.Instance.StringToColor (pointDatas.datas [i] [j]);
+				}
+				EventTrigger trigger = obj.AddComponent<EventTrigger> ();
+				var entry = new EventTrigger.Entry ();
+				entry.eventID = EventTriggerType.PointerDown;
+				entry.callback.AddListener ((x) => {
+					RockManager.Instance.ChangeColor (name, colors);
+				});
+				trigger.triggers.Add (entry);
+			} else {
+				Debug.LogError ("そのようなモードは存在しません：" + pointDatas.datas [i] [2]);
 			}
 		}
 	}

@@ -219,6 +219,8 @@ GameObject:
   - component: {fileID: 295258988}
   - component: {fileID: 295258992}
   - component: {fileID: 295258993}
+  - component: {fileID: 295258995}
+  - component: {fileID: 295258994}
   m_Layer: 5
   m_Name: SearchCanvas
   m_TagString: Untagged
@@ -330,6 +332,28 @@ MonoBehaviour:
   leftArrow: {fileID: 672591558}
   rightArrow: {fileID: 1009793679}
   returnArrow: {fileID: 395065967}
+--- !u!114 &295258994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 295258987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9050b88040bc241eea0aeba793c4ce59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &295258995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 295258987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a0b40751311d474fb08b74d8a7c5734, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &354638390
 GameObject:
   m_ObjectHideFlags: 0
