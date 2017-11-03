@@ -4,3 +4,4 @@ testkun,1,RMes,hiyori,,,-100,0,0,5,TTeset,test,atest
 rock,1,IRock,hiyori,,,0,100,0,2,1,2,3,4,5
 crock,1,CRock,hiyori,,,100,100,0,Yellow,Red,Blue,Yellow,Green
 gitem,1,GItem,hiyori,,,-100,100,0,
+uitem,1,UItem,hiyori,,,-200,100,0,gitem

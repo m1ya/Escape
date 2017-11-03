@@ -169,12 +169,26 @@ public class CreateStage : MonoBehaviour
 				trigger.triggers.Add (entry);
 			} else if (pointDatas.datas [i] [2] == "GItem") {
 				string name = pointDatas.datas [i] [0];
+				ItemManager.Instance.AddGItems (name);
 				EventTrigger trigger = obj.AddComponent<EventTrigger> ();
 				var entry = new EventTrigger.Entry ();
 				entry.eventID = EventTriggerType.PointerDown;
 				entry.callback.AddListener ((x) => {
-					ItemManager.Instance.AddGItems (name);
+					ItemManager.Instance.GetItem (name);
 					Destroy (obj);
+				});
+				trigger.triggers.Add (entry);
+			} else if (pointDatas.datas [i] [2] == "UItem") {
+				string name = pointDatas.datas [i] [0];
+				string gName = pointDatas.datas [i] [9];
+				ItemManager.Instance.AddUItems (name);
+				EventTrigger trigger = obj.AddComponent<EventTrigger> ();
+				var entry = new EventTrigger.Entry ();
+				entry.eventID = EventTriggerType.PointerDown;
+				entry.callback.AddListener ((x) => {
+					//TODO: 一旦アイテム持ってたら消してる
+					if (ItemManager.Instance.UseItem (name, gName))
+						Destroy (obj);
 				});
 				trigger.triggers.Add (entry);
 			} else {
