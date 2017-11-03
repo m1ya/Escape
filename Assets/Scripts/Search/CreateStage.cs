@@ -167,6 +167,16 @@ public class CreateStage : MonoBehaviour
 					RockManager.Instance.ChangeColor (name, colors);
 				});
 				trigger.triggers.Add (entry);
+			} else if (pointDatas.datas [i] [2] == "GItem") {
+				string name = pointDatas.datas [i] [0];
+				EventTrigger trigger = obj.AddComponent<EventTrigger> ();
+				var entry = new EventTrigger.Entry ();
+				entry.eventID = EventTriggerType.PointerDown;
+				entry.callback.AddListener ((x) => {
+					ItemManager.Instance.AddGItems (name);
+					Destroy (obj);
+				});
+				trigger.triggers.Add (entry);
 			} else {
 				Debug.LogError ("そのようなモードは存在しません：" + pointDatas.datas [i] [2]);
 			}
