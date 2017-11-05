@@ -58,6 +58,8 @@ public class RoomManager : SingletonMonoBehaviour<RoomManager>
 	private void ReturnRoom ()
 	{
 		returnArrow.SetActive (false);
+		rightArrow.SetActive (true);
+		leftArrow.SetActive (true);
 		ChangeRoom (-1, currentRoom);
 	}
 
@@ -94,6 +96,8 @@ public class RoomManager : SingletonMonoBehaviour<RoomManager>
 		PointAction.Instance.SetBgImage (to);
 		PointAction.Instance.SetActivePoint (zoomPoint, true);
 		returnArrow.SetActive (true);
+		leftArrow.SetActive (false);
+		rightArrow.SetActive (false);
 	}
 
 	/// <summary>

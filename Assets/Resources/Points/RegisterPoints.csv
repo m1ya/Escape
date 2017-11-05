@@ -1,2 +1,6 @@
-1,Move,1
-zoomTest,Spot,1
+1,Room,bg
+2,Room,bg
+IR,Spot,rockBg
+CR,Spot,rockBg
+I2R,Spot,rockBg
+C2R,Spot,rockBg

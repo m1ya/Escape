@@ -6,9 +6,11 @@ using UnityEngine.UI;
 public class PointAction : SingletonMonoBehaviour<PointAction>
 {
 
-	private GameObject searchCanvas;
 	[SerializeField]
 	private RawImage backGround;
+
+	[SerializeField]
+	private GameObject Objects;
 
 	private Dictionary<string, GameObject> parents = new Dictionary<string, GameObject> ();
 	private Dictionary<string, GameObject> actionObj = new Dictionary<string, GameObject> ();
@@ -44,14 +46,32 @@ public class PointAction : SingletonMonoBehaviour<PointAction>
 		parents [name].SetActive (flg);
 	}
 
+	/// <summary>
+	/// Spotのデータを更新する
+	/// </summary>
+	/// <param name="before">Before.</param>
+	/// <param name="to">To.</param>
+	public void ChangeSpotData (string before, string to)
+	{
+		if (parents.ContainsKey (to)) {
+			SetActivePoint (to, true);
+			SetActivePoint (before, false);
+			parents [before] = parents [to];
+			parents.Remove (to);
+		}
+		if (bg.ContainsKey (to)) {
+			SetBgImage (to);
+			bg [before] = bg [to];
+			bg.Remove (to);
+		}
+	}
+
 	// Use this for initialization
 	void Start ()
 	{
-		searchCanvas = this.gameObject;
-
-		new CreateStage (searchCanvas);
+		new CreateStage (Objects);
 		RoomManager.Instance.InitRooms ();
-
+		ItemManager.Instance.InitItems ();
 	}
 	
 	// Update is called once per frame

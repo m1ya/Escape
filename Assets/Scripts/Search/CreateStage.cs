@@ -36,7 +36,7 @@ public class CreateStage : MonoBehaviour
 	void CreateParent ()
 	{
 		for (int i = 0; i < pointDatas.lineNum; i++) {
-			if (pointDatas.datas [i] [1] == "Move") {
+			if (pointDatas.datas [i] [1] == "Room") {
 				RoomManager.Instance.AddRoom (int.Parse (pointDatas.datas [i] [0]));
 			}
 			GameObject obj = new GameObject (pointDatas.datas [i] [0]);
@@ -80,7 +80,9 @@ public class CreateStage : MonoBehaviour
 				rectTransform.localPosition = new Vector3 (int.Parse (pointDatas.datas [i] [6]), int.Parse (pointDatas.datas [i] [7]), int.Parse (pointDatas.datas [i] [8]));
 			PointAction.Instance.AddActionObj (pointDatas.datas [i] [0], obj);
 
-			if (pointDatas.datas [i] [2] == "Zoom") {
+			if (pointDatas.datas [i] [2] == "None") {
+				//何もしない
+			} else if (pointDatas.datas [i] [2] == "Zoom") {
 				string name = pointDatas.datas [i] [9];
 				EventTrigger trigger = obj.AddComponent<EventTrigger> ();
 				var entry = new EventTrigger.Entry ();
@@ -143,6 +145,7 @@ public class CreateStage : MonoBehaviour
 				var entry = new EventTrigger.Entry ();
 				entry.eventID = EventTriggerType.PointerDown;
 				entry.callback.AddListener ((x) => {
+					AudioManager.Instance.PlaySE ("button");
 					RockManager.Instance.ChangeNumber (name, nums);
 				});
 				trigger.triggers.Add (entry);
@@ -164,31 +167,56 @@ public class CreateStage : MonoBehaviour
 				var entry = new EventTrigger.Entry ();
 				entry.eventID = EventTriggerType.PointerDown;
 				entry.callback.AddListener ((x) => {
+					AudioManager.Instance.PlaySE ("button");
 					RockManager.Instance.ChangeColor (name, colors);
 				});
 				trigger.triggers.Add (entry);
 			} else if (pointDatas.datas [i] [2] == "GItem") {
 				string name = pointDatas.datas [i] [0];
+				string mes = pointDatas.datas [i] [9];
 				ItemManager.Instance.AddGItems (name);
 				EventTrigger trigger = obj.AddComponent<EventTrigger> ();
 				var entry = new EventTrigger.Entry ();
 				entry.eventID = EventTriggerType.PointerDown;
 				entry.callback.AddListener ((x) => {
-					ItemManager.Instance.GetItem (name);
+					ItemManager.Instance.GetItem (name, mes);
 					Destroy (obj);
 				});
 				trigger.triggers.Add (entry);
 			} else if (pointDatas.datas [i] [2] == "UItem") {
 				string name = pointDatas.datas [i] [0];
 				string gName = pointDatas.datas [i] [9];
+				int length = pointDatas.datas [i].Length - 10;
+				string[] mes = new string[length];
+				for (int j = 10; j - 10 < length; j++) {
+					mes [j - 10] = pointDatas.datas [i] [j];
+				}
 				ItemManager.Instance.AddUItems (name);
 				EventTrigger trigger = obj.AddComponent<EventTrigger> ();
 				var entry = new EventTrigger.Entry ();
 				entry.eventID = EventTriggerType.PointerDown;
 				entry.callback.AddListener ((x) => {
-					//TODO: 一旦アイテム持ってたら消してる
-					if (ItemManager.Instance.UseItem (name, gName))
-						Destroy (obj);
+					ActionManager.Instance.ItemAction (name, gName, mes);
+				});
+				trigger.triggers.Add (entry);
+			} else if (pointDatas.datas [i] [2] == "Open") {
+				string bName = pointDatas.datas [i] [9];
+				string aName = pointDatas.datas [i] [10];
+				int length = pointDatas.datas [i].Length - 11;
+				string[] datas = new string[length];
+				for (int j = 11; j - 11 < length; j++) {
+					datas [j - 11] = pointDatas.datas [i] [j];
+				}
+				EventTrigger trigger = obj.AddComponent<EventTrigger> ();
+				var entry = new EventTrigger.Entry ();
+				entry.eventID = EventTriggerType.PointerDown;
+				entry.callback.AddListener ((x) => {
+					if (RockManager.Instance.CheckRocks (datas)) {
+						AudioManager.Instance.PlaySE ("open");
+						PointAction.Instance.ChangeSpotData (bName, aName);
+					} else {
+						AudioManager.Instance.PlaySE ("cancel");
+					}
 				});
 				trigger.triggers.Add (entry);
 			} else {

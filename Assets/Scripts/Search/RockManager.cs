@@ -91,6 +91,20 @@ public class RockManager : SingletonMonoBehaviour<RockManager>
 		cRocks [name] = colorRockData;
 	}
 
+	public bool CheckRocks (string[] names)
+	{
+		for (int i = 0; i < names.Length; i++) {
+			if (iRocks.ContainsKey (names [i])) {
+				if (iRocks [names [i]].isCorrect == false)
+					return false;
+			} else if (cRocks.ContainsKey (names [i])) {
+				if (cRocks [names [i]].isCorrect == false)
+					return false;
+			}
+		}
+		return true;
+	}
+
 	// Use this for initialization
 	void Start ()
 	{
